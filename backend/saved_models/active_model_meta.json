@@ -1,1 +1,1 @@
-{"model_type": "random_forest", "model_version": "random_forest_20260221_142516_b7a02c", "imbalance_method": "class_weight", "is_isolation_forest": false}
+{"model_type": "random_forest", "model_version": "random_forest_20260925_141454_4d3e92", "imbalance_method": "class_weight", "is_isolation_forest": false}

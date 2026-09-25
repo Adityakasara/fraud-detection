@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
-import { Upload, FileText, CheckCircle, AlertCircle, Table } from 'lucide-react'
-import { uploadDataset } from '../api'
+import { Upload, FileText, CheckCircle, AlertCircle, Table, Zap } from 'lucide-react'
+import { uploadDataset, uploadSampleDataset } from '../api'
 
 export default function UploadPage() {
     const [dragging, setDragging] = useState(false)
@@ -26,6 +26,20 @@ export default function UploadPage() {
         }
     }
 
+    const handleLoadSample = async () => {
+        setLoading(true)
+        setError(null)
+        setResult(null)
+        try {
+            const { data } = await uploadSampleDataset()
+            setResult(data)
+        } catch (e) {
+            setError(e.response?.data?.detail || e.message)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const onDrop = (e) => {
         e.preventDefault()
         setDragging(false)
@@ -34,9 +48,19 @@ export default function UploadPage() {
 
     return (
         <div className="fade-in">
-            <div className="page-header">
-                <h2>Upload Dataset</h2>
-                <p>Upload a CSV transaction dataset to begin fraud detection analysis.</p>
+            <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
+                <div>
+                    <h2>Upload Dataset</h2>
+                    <p>Upload a CSV transaction dataset to begin fraud detection analysis.</p>
+                </div>
+                <button
+                    className="btn btn-primary"
+                    onClick={handleLoadSample}
+                    disabled={loading}
+                    style={{ display: 'flex', alignItems: 'center', gap: 6 }}
+                >
+                    <Zap size={14} /> Quick Load 10k Sample Data
+                </button>
             </div>
 
             {/* Drop Zone */}

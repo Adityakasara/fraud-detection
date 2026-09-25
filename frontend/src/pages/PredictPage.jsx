@@ -43,6 +43,48 @@ const DEFAULT_FEATURES = {
     V26: -0.19, V27: 0.13, V28: -0.02,
 }
 
+const PRESETS = [
+    {
+        name: '🟢 Clean Transaction',
+        desc: 'Typical cardholder purchase ($42.50, low risk)',
+        features: {
+            Time: 45000, Amount: 42.50,
+            V1: -0.12, V2: 0.15, V3: 0.88, V4: -0.42, V5: 0.10,
+            V6: 0.22, V7: 0.05, V8: -0.08, V9: 0.35, V10: 0.12,
+            V11: -0.18, V12: 0.04, V13: -0.25, V14: -0.08, V15: 0.45,
+            V16: 0.12, V17: -0.05, V18: 0.08, V19: -0.12, V20: 0.04,
+            V21: 0.01, V22: -0.05, V23: 0.02, V24: 0.04, V25: 0.02,
+            V26: -0.03, V27: 0.01, V28: 0.00,
+        },
+    },
+    {
+        name: '🔴 Stolen Card Attack',
+        desc: 'Acute outlier behavioral signals ($1,420, high risk)',
+        features: {
+            Time: 92000, Amount: 1420.0,
+            V1: -4.85, V2: 3.92, V3: -6.42, V4: 4.88, V5: -2.15,
+            V6: -1.82, V7: -5.10, V8: 2.45, V9: -3.12, V10: -6.80,
+            V11: 4.12, V12: -6.95, V13: 0.45, V14: -8.45, V15: -0.85,
+            V16: -4.20, V17: -8.12, V18: -2.85, V19: 1.85, V20: 0.95,
+            V21: 0.88, V22: -0.42, V23: -0.35, V24: 0.12, V25: 0.45,
+            V26: 0.52, V27: 1.15, V28: 0.42,
+        },
+    },
+    {
+        name: '🟡 Suspicious / Review',
+        desc: 'Unusual amount ($640, moderate deviation)',
+        features: {
+            Time: 62000, Amount: 640.0,
+            V1: -1.85, V2: 1.25, V3: -1.95, V4: 2.15, V5: -0.85,
+            V6: -0.45, V7: -1.42, V8: 0.85, V9: -1.25, V10: -2.10,
+            V11: 1.45, V12: -2.35, V13: 0.12, V14: -3.10, V15: -0.15,
+            V16: -1.45, V17: -2.85, V18: -0.95, V19: 0.65, V20: 0.35,
+            V21: 0.32, V22: -0.15, V23: -0.08, V24: 0.05, V25: 0.18,
+            V26: 0.22, V27: 0.45, V28: 0.12,
+        },
+    },
+]
+
 export default function PredictPage() {
     const [tab, setTab] = useState('single')
     const [features, setFeatures] = useState(DEFAULT_FEATURES)
@@ -119,7 +161,25 @@ export default function PredictPage() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 20, alignItems: 'start' }}>
                     {/* Feature form */}
                     <div className="glass-card">
-                        <p className="section-title" style={{ marginBottom: 16 }}>Transaction Features</p>
+                        <p className="section-title" style={{ marginBottom: 12 }}>Transaction Features</p>
+                        <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>Quick Test:</span>
+                            {PRESETS.map((p, idx) => (
+                                <button
+                                    key={idx}
+                                    type="button"
+                                    className="btn btn-ghost"
+                                    style={{ fontSize: '0.75rem', padding: '4px 10px', borderRadius: 20 }}
+                                    onClick={() => {
+                                        setFeatures(p.features)
+                                        setResult(null)
+                                    }}
+                                    title={p.desc}
+                                >
+                                    {p.name}
+                                </button>
+                            ))}
+                        </div>
                         <div className="form-grid" style={{ marginBottom: 20 }}>
                             {Object.entries(features).slice(0, 12).map(([key, val]) => (
                                 <div key={key} className="form-group">

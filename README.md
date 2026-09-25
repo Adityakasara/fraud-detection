@@ -1,11 +1,25 @@
 # FraudShield 🛡️ — Credit Card Fraud Detection & Anomaly Analytics
 
-A full-stack ML web application that detects fraudulent credit card transactions in near real-time, built as per the SRS specification.
+A full-stack machine learning web application that detects fraudulent credit card transactions in real-time with explainable AI and automated risk triage.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen?style=for-the-badge&logo=github)](https://adityakasara.github.io/fraud-detection/)
 ![Tech Stack](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat-square&logo=fastapi)
 ![Tech Stack](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?style=flat-square&logo=react)
 ![Tech Stack](https://img.shields.io/badge/ML-scikit--learn%20%7C%20XGBoost-F7931E?style=flat-square)
 ![Tech Stack](https://img.shields.io/badge/DB-SQLite-003B57?style=flat-square&logo=sqlite)
+
+> **🌐 Live Interactive App**: [https://adityakasara.github.io/fraud-detection/](https://adityakasara.github.io/fraud-detection/)
+
+---
+
+## 🏛️ Context for Synchrony Financial Analytics Roles
+
+Synchrony Financial (NYSE: SYF) is the largest provider of private-label store credit cards in the US (financing cards for **Amazon, Lowe's, CareCredit, Sam's Club, PayPal**). This project demonstrates the exact analytical problem-solving required in a Synchrony Fraud Risk & Analytics role:
+
+1. **The Core Business Trade-off**: Fraud analytics at Synchrony isn't just about catching fraudsters—it's about protecting retail partner relationships by minimizing the **Customer Insult Rate** (declining legitimate cardholders at checkout) while reducing **Fraud Loss Basis Points (bps)**:
+   $$\text{Fraud bps} = \left(\frac{\text{Fraud Loss \$}}{\text{Purchase Volume \$}}\right) \times 10,000$$
+2. **Handling Extreme Class Imbalance (0.17%)**: Real credit card fraud represents only ~17 out of every 10,000 transactions. Predicting "legitimate" 100% of the time yields 99.83% naive accuracy while catching zero fraud. We evaluate models using **Precision-Recall AUC (PR-AUC)** and cost-matrix curves rather than deceptive accuracy.
+3. **Regulatory Explainability (FCRA & ECOA Compliance)**: Regulated banking requires that adverse action decisions (declined transactions) provide clear, non-discriminatory reasons. We use **TreeSHAP** to attribute risk scores to individual features and generate human-readable reason codes.
 
 ---
 
@@ -65,7 +79,7 @@ fraud-detection/
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/fraud-detection.git
+git clone https://github.com/Adityakasara/fraud-detection.git
 cd fraud-detection
 ```
 

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom'
 import { Shield, Upload, Cpu, BarChart2, Search, LayoutDashboard } from 'lucide-react'
 import UploadPage from './pages/UploadPage'
 import TrainPage from './pages/TrainPage'
@@ -16,7 +16,7 @@ const NAV_ITEMS = [
 
 export default function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className="app-layout">
                 {/* Sidebar */}
                 <aside className="sidebar">
@@ -52,7 +52,7 @@ export default function App() {
                 {/* Main */}
                 <main className="main-content">
                     <Routes>
-                        <Route path="/" element={<Navigate to="/upload" replace />} />
+                        <Route path="/" element={<Navigate to="/dashboard" replace />} />
                         <Route path="/upload" element={<UploadPage />} />
                         <Route path="/train" element={<TrainPage />} />
                         <Route path="/metrics" element={<MetricsPage />} />
@@ -61,6 +61,6 @@ export default function App() {
                     </Routes>
                 </main>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     )
 }

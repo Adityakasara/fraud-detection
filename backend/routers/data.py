@@ -79,3 +79,42 @@ async def upload_dataset(file: UploadFile = File(...), db: Session = Depends(get
         target_column=target_col,
         message=f"Dataset uploaded successfully. {'Target column detected: ' + target_col if target_col else 'Warning: no target column found (upload for batch prediction only).'}",
     )
+
+
+@router.post("/sample", response_model=UploadResponse)
+def load_sample_dataset(db: Session = Depends(get_db)):
+    sample_path = os.path.join(os.path.dirname(__file__), "..", "sample_creditcard.csv")
+    if not os.path.exists(sample_path):
+        raise HTTPException(status_code=404, detail="Sample dataset not found.")
+
+    filepath = os.path.join(UPLOAD_DIR, "sample_creditcard.csv")
+    shutil.copy(sample_path, filepath)
+
+    df = pd.read_csv(filepath)
+    num_rows, num_cols = df.shape
+    columns = df.columns.tolist()
+    target_col = detect_target_column(df)
+
+    existing = db.query(UploadedDataset).filter(UploadedDataset.filename == "sample_creditcard.csv").first()
+    if existing:
+        db.delete(existing)
+    record = UploadedDataset(
+        filename="sample_creditcard.csv",
+        num_rows=num_rows,
+        num_cols=num_cols,
+        columns=json.dumps(columns),
+        filepath=filepath,
+    )
+    db.add(record)
+    db.commit()
+
+    preview = df.head(5).fillna("").to_dict(orient="records")
+    return UploadResponse(
+        filename="sample_creditcard.csv",
+        num_rows=num_rows,
+        num_cols=num_cols,
+        columns=columns,
+        preview=preview,
+        target_column=target_col,
+        message="Loaded 10,000-row sample credit card dataset with 'Class' target column.",
+    )

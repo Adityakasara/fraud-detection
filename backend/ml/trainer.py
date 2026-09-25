@@ -18,7 +18,7 @@ from imblearn.over_sampling import SMOTE
 try:
     from xgboost import XGBClassifier
     HAS_XGB = True
-except ImportError:
+except Exception:
     HAS_XGB = False
 
 from ml.preprocessor import fit_and_save, transform, detect_target_column
