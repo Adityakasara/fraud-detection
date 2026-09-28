@@ -10,53 +10,51 @@ build/
 .eggs/
 *.egg
 
-# Virtual environment
+# Virtual environments
 venv/
 env/
 .env/
 .venv/
+backend/venv/
 
 # Environment variables
 .env
 .env.local
 
-# Database
+# Databases & logs
 *.db
 *.sqlite
 *.sqlite3
-
-# Saved ML models (too large for git)
-backend/saved_models/*.joblib
-backend/saved_models/*.pkl
-
-# Uploaded files / generated data
-uploads/
-backend/sample_creditcard.csv
-
-# Logs
 *.log
 logs/
-/tmp/uvicorn.log
 nohup.out
 
-# OS
+# Large datasets (DO NOT commit full Kaggle dataset)
+creditcard.csv
+data/creditcard.csv
+backend/creditcard.csv
+*.zip
+*.tar.gz
+*.csv.gz
+
+# Allow demo transactions CSV
+!data/demo_transactions.csv
+
+# Jupyter checkpoints (allow notebooks)
+.ipynb_checkpoints/
+
+# OS & IDE
 .DS_Store
 Thumbs.db
-
-# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# Frontend
+# Frontend (if used)
 frontend/node_modules/
 frontend/dist/
 frontend/.vite/
-
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb
 
 # Coverage
 .coverage
