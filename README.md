@@ -1,10 +1,15 @@
 # Credit Card Fraud Detection
 
-An interview-ready end-to-end Machine Learning and Analytics project designed to solve real-world credit card transaction risk scoring under severe class imbalance (0.17% fraud rate), featuring cost-based decision threshold optimization and an interactive live Streamlit demo.
+An interview-ready end-to-end Machine Learning and Analytics project designed to solve real-world credit card transaction risk scoring under severe class imbalance (0.17% fraud rate), featuring cost-based decision threshold optimization and an interactive live web demo on GitHub Pages.
 
-[![Streamlit App](https://img.shields.io/badge/Demo-Streamlit-FF4B4B?style=flat-square&logo=streamlit)](http://localhost:8501)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2ea44f?style=for-the-badge&logo=github)](https://adityakasara.github.io/fraud-detection/)
+[![Web Application](https://img.shields.io/badge/Web%20App-React%2018%20%2B%20Vite-61dafb?style=flat-square&logo=react)](https://adityakasara.github.io/fraud-detection/)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
 [![scikit-learn](https://img.shields.io/badge/Library-scikit--learn-F7931E?style=flat-square&logo=scikit-learn)](https://scikit-learn.org/)
+
+> 🌐 **Live Web Application:** [https://adityakasara.github.io/fraud-detection/](https://adityakasara.github.io/fraud-detection/)  
+> Runs 100% client-side in your browser with zero setup — instant transaction risk scoring, interactive Synchrony cost-benefit threshold curves, and 1-click batch CSV analysis.
+
 
 ---
 
@@ -51,7 +56,7 @@ Model Evaluation (Precision, Recall, F1, PR-AUC, Confusion Matrix)
    ↓
 Cost-Based Threshold Optimization (Testing cutoffs 0.10 → 0.90 with FN=$150, FP=$5)
    ↓
-Live Streamlit Prediction Demo (Instant transaction scoring & batch CSV analysis)
+Live Web Application on GitHub Pages (Instant client scoring, Cost Optimizer, & batch CSV analysis)
 ```
 
 ---
@@ -163,7 +168,11 @@ python3 train.py
 ### 4. Run the 7-Cell Notebook
 Open `notebooks/fraud_detection_analysis.ipynb` in Jupyter Notebook, VS Code, or upload directly to Google Colab. The notebook executes sequentially across 7 clean cells without extra setup.
 
-### 5. Launch the Live Streamlit Demo
+### 5. Access the Live Web Demo (GitHub Pages)
+No local installation required — access the live web application immediately:
+👉 **[https://adityakasara.github.io/fraud-detection/](https://adityakasara.github.io/fraud-detection/)**
+
+*(Optional) If you want to run the local Streamlit demo alternatively:*
 ```bash
 streamlit run app.py
 ```
@@ -175,15 +184,19 @@ Open **http://localhost:8501** in your browser.
 
 When demonstrating this project live in an interview:
 
-1. **Open the Streamlit App:** Note the "Model Status: Loaded ✓" indicator in the sidebar showing cached inference.
-2. **Select a Legitimate Sample:** In the **Option A** tab, select `Transaction #01` (Amount: $0.77). Click **"Analyze Transaction"**.
-   - Show: Fraud Probability: `~0.51%`, Risk Score: `0.5 / 100`, Threshold: `84.0%`.
-   - Result: 🟢 **LEGITIMATE** (Instant approval).
-3. **Select a Fraudulent Sample:** Select `Transaction #05` (Amount: $385.00). Click **"Analyze Transaction"**.
-   - Show: Fraud Probability: `~99.98%`, Risk Score: `100.0 / 100`, Threshold: `84.0%`.
-   - Result: 🔴 **FRAUD** (Trigger 2FA / Authorization Challenge).
-4. **Explain Threshold Optimization:** Open the sidebar to highlight how tuning the cutoff to `0.84` reduced false alarms by 76.6% and saved an estimated $1,290 in business costs.
-5. **(Optional) Batch Scoring:** Switch to **Option B**, upload `data/demo_transactions.csv`, and click **"Score Uploaded Transactions"** to show instant multi-transaction batch processing and CSV export.
+1. **Open the Live Web Demo:** Navigate to [https://adityakasara.github.io/fraud-detection/](https://adityakasara.github.io/fraud-detection/). Notice the "Live on GitHub Pages" status and active in-browser Scikit-Learn inference engine.
+2. **Review Single Transaction Scoring:** Go to **"Predict & Score"**:
+   - Click preset **`🟢 Demo #01: Legit ($0.77)`** and click **"Analyze Transaction"**:
+     - Result: 🟢 **LEGITIMATE** (Risk Score: `0.5%`, well below cutoff `84.0%` -> Approved).
+   - Click preset **`🔴 Demo #05: Fraud ($261.87)`** and click **"Analyze Transaction"**:
+     - Result: 🔴 **FRAUD DETECTED** (Risk Score: `100.0%`, exceeds cutoff `84.0%` -> Step-Up 2FA Challenge).
+     - Point out the feature attribution waterfall bars (e.g. `V14`, `Amount`, `V4`) showing exact explainability reason codes.
+3. **Walk Through Cost-Benefit Threshold Optimization:** Click **"Cost Optimizer"** in the sidebar:
+   - Highlight the interactive U-shaped financial loss curve from cutoff `0.10` to `0.90`.
+   - Show how moving from standard `0.50` cutoff to optimal `0.84` cutoff slashes customer insults from **337 to 79** (**76.6% reduction**) and saves **$1,290** (a **38.7% cost reduction**) on the holdout test set.
+4. **Demonstrate Batch Scoring:** Switch to the **"Batch CSV Analysis"** tab in Predict:
+   - Click **"Load 30 Interview Demo Transactions"** to score all 30 transactions in 0 milliseconds.
+   - Filter by Fraud / Legit and click **"Download Scored CSV"** to export enriched results.
 
 ---
 
