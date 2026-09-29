@@ -276,3 +276,7 @@ export function getMetricsForThreshold(threshold = DEFAULT_OPTIMAL_THRESHOLD) {
         trained_at: '2026-09-29T00:00:00Z',
     }
 }
+
+export const calculatePrediction = predictSingleClient
+export const calculateBatchPredictions = predictBatchClient
+
